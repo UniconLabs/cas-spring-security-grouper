@@ -101,7 +101,7 @@
     <!-- Configuration for the environment can be overriden by system properties -->
     <context:property-placeholder system-properties-mode="OVERRIDE" properties-ref="environment"/>
     <util:properties id="environment">
-        <b:prop key="cas.client.host">dk.example.org:8143</b:prop>
-        <b:prop key="cas.server.host">dk.example.org:8143</b:prop>
+        <b:prop key="cas.client.host">dima767.example.org:7443</b:prop>
+        <b:prop key="cas.server.host">dima767.example.org:7443</b:prop>
     </util:properties>
 </b:beans>
