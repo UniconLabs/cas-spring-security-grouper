@@ -1,0 +1,49 @@
+apply plugin: 'idea'
+apply plugin: 'war'
+defaultTasks 'clean', 'build'
+
+group = 'net.unicon'
+sourceCompatibility = 1.6
+version = '1.0'
+
+repositories {
+	mavenCentral()
+}
+
+def slf4jVersion = '1.6.6'
+def springSecurityVersion = '3.1.2.RELEASE'
+def ehcacheVersion = '2.5.0'
+def grouperVersion = '2.1.0'
+
+dependencies {
+
+    //Logging
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: slf4jVersion
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: slf4jVersion
+
+	//Spring Security
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVersion
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: springSecurityVersion
+    runtime group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
+    runtime group: 'org.springframework.security', name: 'spring-security-cas', version: springSecurityVersion
+    runtime group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
+
+    //Grouper
+    compile group: 'edu.internet2.middleware.grouper', name: 'grouperClient', version: grouperVersion
+
+	//Misc runtime support
+    runtime group: 'net.sf.ehcache', name: 'ehcache-core', version: ehcacheVersion
+}
+
+war {
+	archiveName = 'ss-app.war'
+}
+
+//Just a helper to produce an exploded war, should one choose to use it
+war.doLast {
+    ant.unzip(src: war.archivePath, dest: "$buildDir/ss-app")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.1'
+}
